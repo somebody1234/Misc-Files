@@ -344,7 +344,8 @@ const cmds = {
 		run: function(msg) {
 			let effect = msg.text
 			if (!effects[effect]) {
-				//GameError
+				return Promise.reject(
+					new GameError('Chat effect not found.', 'chat_effect'))
 			}
 			
 			return knex('user').columns(effect).where('id', msg.target_id).first()
